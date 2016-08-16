@@ -2,7 +2,7 @@
 /**
  * @package  Blocks
  * @author   Alan Hardman <alan@phpizza.com>
- * @version  0.1.0
+ * @version  0.1.1
  */
 
 namespace Plugin\Blocks;
@@ -17,8 +17,9 @@ class Base extends \Plugin {
 		$blocks = $block->find();
 		\Base::instance()->set("site.plugins.blocks.blocks", $blocks);
 		foreach($blocks as $block) {
-			$this->_hook($block->hook, function() use($block) {
+			$this->_hook($block->hook, function($data) use($block) {
 				echo $block->content;
+				return $data;
 			});
 		}
 	}
